@@ -1,0 +1,13 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block admin_title %}Profile | Control Panel{% endblock %}
+
+{% block admin_body %}
+    <h1>Profile</h1>
+    <div class="admin-form">
+        {{ form_start(form) }}
+            {{ form_widget(form) }}
+            <button class="btn btn-primary" type="submit">Save profile</button>
+        {{ form_end(form) }}
+    </div>
+{% endblock %}

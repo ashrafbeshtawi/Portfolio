@@ -1,0 +1,42 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block admin_title %}Projects | Control Panel{% endblock %}
+
+{% block admin_body %}
+    <div class="admin-header">
+        <h1>Projects</h1>
+        <a class="btn btn-primary" href="{{ path('admin_project_new') }}">New project</a>
+    </div>
+
+    <table class="admin-table">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Group</th>
+                <th>URL</th>
+                <th>Sort order</th>
+                <th class="actions">Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for project in projects %}
+                <tr>
+                    <td>{{ project.name }}</td>
+                    <td>{{ project.projectGroup.title }}</td>
+                    <td><a href="{{ project.url }}" target="_blank" rel="noopener noreferrer">{{ project.url }}</a></td>
+                    <td>{{ project.sortOrder }}</td>
+                    <td class="actions">
+                        <a class="btn btn-small" href="{{ path('admin_project_edit', {id: project.id}) }}">Edit</a>
+                        <form method="post" action="{{ path('admin_project_delete', {id: project.id}) }}"
+                              onsubmit="return confirm('Delete this project?');">
+                            <input type="hidden" name="_token" value="{{ csrf_token('delete_project_' ~ project.id) }}">
+                            <button class="btn btn-small btn-danger" type="submit">Delete</button>
+                        </form>
+                    </td>
+                </tr>
+            {% else %}
+                <tr><td colspan="5" class="empty">No projects yet.</td></tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

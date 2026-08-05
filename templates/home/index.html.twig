@@ -1,0 +1,190 @@
+{% extends 'base.html.twig' %}
+
+{% import '_icons.html.twig' as icons %}
+
+{% block title %}{{ profile ? profile.fullName ~ ' | ' ~ profile.headline : 'Portfolio' }}{% endblock %}
+
+{% block meta %}
+    {% if profile and profile.metaDescription %}
+        <meta name="description" content="{{ profile.metaDescription }}">
+    {% endif %}
+{% endblock %}
+
+{% block body %}
+    <header class="site-header">
+        <nav class="container">
+            <a class="brand" href="#home">{{ profile ? profile.fullName : 'Portfolio' }}</a>
+            <ul class="nav-links">
+                <li><a href="#skills">Skills</a></li>
+                <li><a href="#projects">Projects</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+            <button class="theme-toggle" type="button" aria-label="Toggle dark mode" title="Toggle dark mode">
+                <span class="icon-moon" aria-hidden="true">🌙</span>
+                <span class="icon-sun" aria-hidden="true">☀️</span>
+            </button>
+        </nav>
+    </header>
+
+    <main>
+        {% if profile %}
+            <section id="home" class="hero">
+                <div class="container hero-inner">
+                    {% if profile.photoPath %}
+                        <img class="hero-photo" src="{{ asset(profile.photoPath) }}" alt="{{ profile.fullName }}" width="132" height="132">
+                    {% endif %}
+                    <p class="hero-eyebrow">{{ profile.headline }}</p>
+                    <h1>{{ profile.fullName }}</h1>
+                    <p class="hero-tagline">{{ profile.tagline }}</p>
+                    <div class="hero-actions">
+                        <a class="btn btn-primary" href="mailto:{{ profile.email }}">{{ icons.mail() }}Get in Touch</a>
+                        {% if profile.githubUrl %}
+                            <a class="btn btn-ghost" href="{{ profile.githubUrl }}" target="_blank" rel="noopener noreferrer">{{ icons.github() }}GitHub</a>
+                        {% endif %}
+                        {% if profile.linkedinUrl %}
+                            <a class="btn btn-ghost" href="{{ profile.linkedinUrl }}" target="_blank" rel="noopener noreferrer">{{ icons.linkedin() }}LinkedIn</a>
+                        {% endif %}
+                        {% if profile.cvPath %}
+                            <a class="btn btn-ghost" href="{{ asset(profile.cvPath) }}" download>{{ icons.download() }}Download CV</a>
+                        {% endif %}
+                    </div>
+                </div>
+            </section>
+        {% else %}
+            <section id="home" class="hero">
+                <div class="container hero-inner">
+                    <h1>Portfolio</h1>
+                    <p class="hero-tagline">No content yet — sign in to the <a href="{{ path('app_login') }}">control panel</a> to add it.</p>
+                </div>
+            </section>
+        {% endif %}
+
+        <section id="skills" class="section">
+            <div class="container">
+                <p class="eyebrow">Expertise</p>
+                <h2>Skills</h2>
+                <p class="section-subtitle">The tools I work with every day</p>
+                <div class="skill-grid">
+                    {% for category in skillCategories %}
+                        <div class="skill-card">
+                            <h3>
+                                {% if category.icon %}<span class="cat-icon">{{ category.icon }}</span>{% endif %}
+                                {{ category.name }}
+                            </h3>
+                            <ul class="skill-list">
+                                {% for skill in category.skills %}
+                                    <li>
+                                        {% if skill.url %}
+                                            <a class="chip chip-link" href="{{ skill.url }}" target="_blank" rel="noopener noreferrer">{{ skill.name }} ↗</a>
+                                        {% else %}
+                                            <span class="chip">{{ skill.name }}</span>
+                                        {% endif %}
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </section>
+
+        <section id="projects" class="section section-alt">
+            <div class="container">
+                <p class="eyebrow">Work &amp; Credentials</p>
+                <h2>Projects &amp; Certifications</h2>
+                <p class="section-subtitle">Things I've built and operate — and the credentials behind them</p>
+                {% for group in projectGroups %}
+                    <div class="project-group">
+                        {% if projectGroups|length > 1 or group.title != 'Selected Projects' %}
+                            <h3 class="project-group-title">{{ group.title }}</h3>
+                        {% endif %}
+                        {% if group.imagePath %}
+                            <img class="project-group-image" src="{{ asset(group.imagePath) }}" alt="{{ group.title }}" loading="lazy">
+                        {% endif %}
+                        <div class="project-cards">
+                            {% for project in group.projects %}
+                                <article class="project-card">
+                                    <h4>{{ project.name }}</h4>
+                                    {% if project.description %}
+                                        <p>{{ project.description }}</p>
+                                    {% endif %}
+                                    <a class="project-link" href="{{ project.url }}" target="_blank" rel="noopener noreferrer">View project ↗</a>
+                                </article>
+                            {% endfor %}
+                        </div>
+                    </div>
+                {% endfor %}
+
+                {% if certifications and certifications.skills|length > 0 %}
+                    <div class="cert-block">
+                        <h3 class="cert-heading">
+                            {% if certifications.icon %}<span class="cat-icon">{{ certifications.icon }}</span>{% endif %}
+                            {{ certifications.name }}
+                        </h3>
+                        <div class="cert-cards">
+                            {% for cert in certifications.skills %}
+                                <article class="cert-card">
+                                    <h4>{{ cert.name }}</h4>
+                                    {% if cert.description %}
+                                        <p>{{ cert.description }}</p>
+                                    {% endif %}
+                                    {% if cert.url %}
+                                        <a class="project-link" href="{{ cert.url }}" target="_blank" rel="noopener noreferrer">View certificate ↗</a>
+                                    {% endif %}
+                                </article>
+                            {% endfor %}
+                        </div>
+                    </div>
+                {% endif %}
+            </div>
+        </section>
+
+        {% if profile %}
+            <section id="about" class="section">
+                <div class="container">
+                    <p class="eyebrow">Background</p>
+                    <h2>About Me</h2>
+                    <div class="about-grid">
+                        <div class="about-text">
+                            {% for paragraph in profile.aboutParagraphs %}
+                                <p>{{ paragraph }}</p>
+                            {% endfor %}
+                        </div>
+                        {% if profile.highlightsList is not empty %}
+                            <ul class="fact-tiles">
+                                {% for highlight in profile.highlightsList %}
+                                    <li class="fact-tile">{{ highlight }}</li>
+                                {% endfor %}
+                            </ul>
+                        {% endif %}
+                    </div>
+                </div>
+            </section>
+
+            <section id="contact" class="contact-band">
+                <div class="container contact-inner">
+                    <h2>{{ profile.contactHeading }}</h2>
+                    {% if profile.contactText %}
+                        <p>{{ profile.contactText }}</p>
+                    {% endif %}
+                    <div class="hero-actions">
+                        <a class="btn btn-primary" href="mailto:{{ profile.email }}">{{ icons.mail() }}Email Me</a>
+                        {% if profile.linkedinUrl %}
+                            <a class="btn btn-ghost" href="{{ profile.linkedinUrl }}" target="_blank" rel="noopener noreferrer">{{ icons.linkedin() }}LinkedIn</a>
+                        {% endif %}
+                        {% if profile.githubUrl %}
+                            <a class="btn btn-ghost" href="{{ profile.githubUrl }}" target="_blank" rel="noopener noreferrer">{{ icons.github() }}GitHub</a>
+                        {% endif %}
+                    </div>
+                </div>
+            </section>
+        {% endif %}
+    </main>
+
+    <footer class="site-footer">
+        <div class="container">
+            <p>&copy; {{ 'now'|date('Y') }} {{ profile ? profile.fullName : 'Portfolio' }}. All rights reserved.</p>
+        </div>
+    </footer>
+{% endblock %}

@@ -1,0 +1,40 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block admin_title %}Dashboard | Control Panel{% endblock %}
+
+{% block admin_body %}
+    <h1>Dashboard</h1>
+    <p class="admin-intro">
+        Welcome back{% if app.user %}, <strong>{{ app.user.userIdentifier }}</strong>{% endif %}.
+        Everything shown on the public site can be edited from here.
+    </p>
+
+    {% if profile is null %}
+        <div class="alert alert-error">
+            No profile exists yet — <a href="{{ path('admin_profile_edit') }}">create it now</a> so the public site has content.
+        </div>
+    {% endif %}
+
+    <div class="stat-grid">
+        <a class="stat-card" href="{{ path('admin_profile_edit') }}">
+            <span class="stat-value">{{ profile ? '✓' : '–' }}</span>
+            <span class="stat-label">Profile</span>
+        </a>
+        <a class="stat-card" href="{{ path('admin_skill_category_index') }}">
+            <span class="stat-value">{{ skillCategoryCount }}</span>
+            <span class="stat-label">Skill categories</span>
+        </a>
+        <a class="stat-card" href="{{ path('admin_skill_index') }}">
+            <span class="stat-value">{{ skillCount }}</span>
+            <span class="stat-label">Skills</span>
+        </a>
+        <a class="stat-card" href="{{ path('admin_project_group_index') }}">
+            <span class="stat-value">{{ projectGroupCount }}</span>
+            <span class="stat-label">Project groups</span>
+        </a>
+        <a class="stat-card" href="{{ path('admin_project_index') }}">
+            <span class="stat-value">{{ projectCount }}</span>
+            <span class="stat-label">Projects</span>
+        </a>
+    </div>
+{% endblock %}

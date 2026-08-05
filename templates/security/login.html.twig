@@ -1,0 +1,27 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Sign in | Control Panel{% endblock %}
+
+{% block body %}
+    <main class="login-page">
+        <form class="login-card" method="post" action="{{ path('app_login') }}">
+            <h1>Control Panel</h1>
+            <p class="login-hint">Sign in with the admin credentials.</p>
+
+            {% if error %}
+                <div class="alert alert-error">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+            {% endif %}
+
+            <label for="username">Username</label>
+            <input type="text" id="username" name="_username" value="{{ last_username }}" autocomplete="username" autofocus required>
+
+            <label for="password">Password</label>
+            <input type="password" id="password" name="_password" autocomplete="current-password" required>
+
+            <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+
+            <button class="btn btn-primary" type="submit">Sign in</button>
+            <a class="login-back" href="{{ path('app_home') }}">← Back to site</a>
+        </form>
+    </main>
+{% endblock %}
