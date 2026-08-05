@@ -1,0 +1,235 @@
+/* Control panel styles */
+
+.admin-layout {
+    display: flex;
+    min-height: 100vh;
+}
+
+.admin-sidebar {
+    width: 230px;
+    flex-shrink: 0;
+    background: var(--bg-soft);
+    border-right: 1px solid var(--border);
+    padding: 1.4rem 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.4rem;
+    position: sticky;
+    top: 0;
+    height: 100vh;
+}
+
+.admin-brand {
+    font-weight: 700;
+    font-size: 1.05rem;
+    padding: 0 0.6rem;
+    color: var(--navy);
+}
+
+.admin-sidebar nav {
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+    flex: 1;
+}
+
+.admin-sidebar nav a,
+.admin-sidebar-footer a {
+    color: var(--text-muted);
+    padding: 0.5rem 0.6rem;
+    border-radius: 0.5rem;
+    font-size: 0.95rem;
+    transition: background 0.15s ease, color 0.15s ease;
+}
+
+.admin-sidebar nav a:hover,
+.admin-sidebar-footer a:hover {
+    background: var(--accent-soft);
+    color: var(--text);
+}
+
+.admin-sidebar-footer {
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+    border-top: 1px solid var(--border);
+    padding-top: 1rem;
+}
+
+.admin-content {
+    flex: 1;
+    padding: 2.2rem 2.5rem;
+    max-width: 68rem;
+}
+
+.admin-content h1 {
+    font-size: 1.7rem;
+    margin-bottom: 1.2rem;
+}
+
+.admin-intro {
+    color: var(--text-muted);
+    margin-bottom: 1.6rem;
+}
+
+.admin-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 1.4rem;
+}
+
+.admin-header h1 {
+    margin-bottom: 0;
+}
+
+/* Dashboard stats */
+.stat-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 1rem;
+}
+
+.stat-card {
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+    padding: 1.2rem 1.3rem;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    background: var(--card);
+    color: var(--text);
+    transition: border-color 0.15s ease;
+}
+
+.stat-card:hover {
+    border-color: var(--accent);
+}
+
+.stat-value {
+    font-size: 1.9rem;
+    font-weight: 700;
+}
+
+.stat-label {
+    color: var(--text-muted);
+    font-size: 0.9rem;
+}
+
+/* Tables */
+.admin-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.95rem;
+}
+
+.admin-table th,
+.admin-table td {
+    text-align: left;
+    padding: 0.65rem 0.8rem;
+    border-bottom: 1px solid var(--border);
+    vertical-align: middle;
+}
+
+.admin-table th {
+    color: var(--text-muted);
+    font-weight: 600;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+}
+
+.admin-table .actions {
+    text-align: right;
+    white-space: nowrap;
+}
+
+.admin-table .actions form {
+    display: inline-block;
+    margin-left: 0.4rem;
+}
+
+.admin-table .empty {
+    color: var(--text-muted);
+    text-align: center;
+    padding: 2rem;
+}
+
+.btn-small {
+    padding: 0.3rem 0.75rem;
+    font-size: 0.85rem;
+}
+
+.btn-danger {
+    border-color: #f3b4b4;
+    color: #b32626;
+}
+
+.btn-danger:hover {
+    border-color: #d64545;
+    color: #a02222;
+    background: #fdecec;
+}
+
+/* Forms (default Symfony form_div_layout markup) */
+.admin-form {
+    max-width: 40rem;
+}
+
+.admin-form form > div {
+    margin-bottom: 1.1rem;
+}
+
+.admin-form label {
+    display: block;
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    margin-bottom: 0.3rem;
+}
+
+.admin-form input[type="text"],
+.admin-form input[type="email"],
+.admin-form input[type="url"],
+.admin-form input[type="number"],
+.admin-form textarea,
+.admin-form select {
+    width: 100%;
+    padding: 0.55rem 0.8rem;
+    border-radius: 0.5rem;
+    border: 1px solid var(--border);
+    background: var(--card);
+    color: var(--text);
+    font-size: 0.98rem;
+    font-family: inherit;
+}
+
+.admin-form input:focus,
+.admin-form textarea:focus,
+.admin-form select:focus {
+    outline: 2px solid var(--accent);
+    outline-offset: 1px;
+}
+
+.admin-form select option {
+    background: var(--bg-soft);
+    color: var(--text);
+}
+
+.admin-form ul {
+    list-style: none;
+    color: #b32626;
+    font-size: 0.88rem;
+    margin-bottom: 0.3rem;
+}
+
+.admin-form .help-text,
+.admin-form [id$="_help"] {
+    display: block;
+    color: var(--text-muted);
+    font-size: 0.82rem;
+    margin-top: 0.25rem;
+}
+
+.admin-form .btn {
+    margin-right: 0.5rem;
+}

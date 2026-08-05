@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>{% block title %}Portfolio{% endblock %}</title>
+        {% block meta %}{% endblock %}
+        <link rel="icon" href="{{ asset('favicon.ico') }}">
+        {# Apply the stored (or system-preferred) theme before first paint to avoid flashing #}
+        <script>
+            (function () {
+                var theme = null;
+                try { theme = localStorage.getItem('theme'); } catch (e) {}
+                if (theme !== 'dark' && theme !== 'light') {
+                    theme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+                }
+                document.documentElement.dataset.theme = theme;
+            })();
+        </script>
+        {% block stylesheets %}
+            <link rel="stylesheet" href="{{ asset('css/app.css') }}">
+        {% endblock %}
+    </head>
+    <body class="{% block body_class %}{% endblock %}">
+        {% block body %}{% endblock %}
+        {% block javascripts %}
+            <script src="{{ asset('js/theme.js') }}" defer></script>
+        {% endblock %}
+    </body>
+</html>

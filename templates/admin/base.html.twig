@@ -1,0 +1,41 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{% block admin_title %}Control Panel{% endblock %}{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('css/admin.css') }}">
+{% endblock %}
+
+{% block body %}
+    <div class="admin-layout">
+        <aside class="admin-sidebar">
+            <div class="admin-brand">Control Panel</div>
+            <nav>
+                <a href="{{ path('admin_dashboard') }}">Dashboard</a>
+                <a href="{{ path('admin_profile_edit') }}">Profile</a>
+                <a href="{{ path('admin_skill_category_index') }}">Skill categories</a>
+                <a href="{{ path('admin_skill_index') }}">Skills</a>
+                <a href="{{ path('admin_project_group_index') }}">Project groups</a>
+                <a href="{{ path('admin_project_index') }}">Projects</a>
+            </nav>
+            <div class="admin-sidebar-footer">
+                <a href="{{ path('app_home') }}">View site</a>
+                <a href="{{ path('app_logout') }}">Sign out</a>
+                <button class="theme-toggle" type="button" aria-label="Toggle dark mode" title="Toggle dark mode">
+                    <span class="icon-moon" aria-hidden="true">🌙</span>
+                    <span class="icon-sun" aria-hidden="true">☀️</span>
+                </button>
+            </div>
+        </aside>
+        <main class="admin-content">
+            {% for message in app.flashes('success') %}
+                <div class="alert alert-success">{{ message }}</div>
+            {% endfor %}
+            {% for message in app.flashes('error') %}
+                <div class="alert alert-error">{{ message }}</div>
+            {% endfor %}
+            {% block admin_body %}{% endblock %}
+        </main>
+    </div>
+{% endblock %}

@@ -1,0 +1,40 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block admin_title %}Skill categories | Control Panel{% endblock %}
+
+{% block admin_body %}
+    <div class="admin-header">
+        <h1>Skill categories</h1>
+        <a class="btn btn-primary" href="{{ path('admin_skill_category_new') }}">New category</a>
+    </div>
+
+    <table class="admin-table">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Skills</th>
+                <th>Sort order</th>
+                <th class="actions">Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for category in categories %}
+                <tr>
+                    <td>{{ category.icon ? category.icon ~ ' ' }}{{ category.name }}</td>
+                    <td>{{ category.skills|length }}</td>
+                    <td>{{ category.sortOrder }}</td>
+                    <td class="actions">
+                        <a class="btn btn-small" href="{{ path('admin_skill_category_edit', {id: category.id}) }}">Edit</a>
+                        <form method="post" action="{{ path('admin_skill_category_delete', {id: category.id}) }}"
+                              onsubmit="return confirm('Delete this category and all its skills?');">
+                            <input type="hidden" name="_token" value="{{ csrf_token('delete_skill_category_' ~ category.id) }}">
+                            <button class="btn btn-small btn-danger" type="submit">Delete</button>
+                        </form>
+                    </td>
+                </tr>
+            {% else %}
+                <tr><td colspan="4" class="empty">No categories yet.</td></tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

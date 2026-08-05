@@ -1,0 +1,61 @@
+name: CI
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  tests:
+    name: PHPUnit (unit, integration, E2E)
+    runs-on: ubuntu-latest
+
+    services:
+      postgres:
+        image: postgres:18-alpine
+        env:
+          POSTGRES_DB: portfolio
+          POSTGRES_USER: portfolio
+          POSTGRES_PASSWORD: portfolio
+        ports:
+          - "5432:5432"
+        options: >-
+          --health-cmd "pg_isready -U portfolio -d portfolio"
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 10
+
+    env:
+      DATABASE_URL: "postgresql://portfolio:portfolio@127.0.0.1:5432/portfolio?serverVersion=18&charset=utf8"
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up PHP 8.4
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.4'
+          extensions: intl, pdo_pgsql, zip
+          coverage: none
+
+      - name: Install Composer dependencies (cached)
+        uses: ramsey/composer-install@v3
+
+      - name: Prepare test database
+        run: |
+          php bin/console doctrine:database:create --env=test --if-not-exists --no-interaction
+          php bin/console doctrine:migrations:migrate --env=test --no-interaction
+
+      - name: Run unit tests
+        run: vendor/bin/phpunit --testsuite unit
+
+      - name: Run integration tests
+        run: vendor/bin/phpunit --testsuite integration
+
+      - name: Install ChromeDriver for Panther
+        run: vendor/bin/bdi detect drivers
+
+      - name: Run E2E tests (Chromium)
+        env:
+          PANTHER_NO_SANDBOX: 1
+        run: vendor/bin/phpunit -c phpunit.e2e.xml
