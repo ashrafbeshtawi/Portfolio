@@ -1,5 +1,7 @@
 {% extends 'base.html.twig' %}
 
+{% import '_icons.html.twig' as icons %}
+
 {% block title %}{{ profile ? profile.fullName ~ ' | ' ~ profile.headline : 'Portfolio' }}{% endblock %}
 
 {% block meta %}
@@ -36,15 +38,15 @@
                     <h1>{{ profile.fullName }}</h1>
                     <p class="hero-tagline">{{ profile.tagline }}</p>
                     <div class="hero-actions">
-                        <a class="btn btn-primary" href="mailto:{{ profile.email }}">Get in Touch</a>
+                        <a class="btn btn-primary" href="mailto:{{ profile.email }}">{{ icons.mail() }}Get in Touch</a>
                         {% if profile.githubUrl %}
-                            <a class="btn btn-ghost" href="{{ profile.githubUrl }}" target="_blank" rel="noopener noreferrer">GitHub</a>
+                            <a class="btn btn-ghost" href="{{ profile.githubUrl }}" target="_blank" rel="noopener noreferrer">{{ icons.github() }}GitHub</a>
                         {% endif %}
                         {% if profile.linkedinUrl %}
-                            <a class="btn btn-ghost" href="{{ profile.linkedinUrl }}" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+                            <a class="btn btn-ghost" href="{{ profile.linkedinUrl }}" target="_blank" rel="noopener noreferrer">{{ icons.linkedin() }}LinkedIn</a>
                         {% endif %}
                         {% if profile.cvPath %}
-                            <a class="btn btn-ghost" href="{{ asset(profile.cvPath) }}" download>Download CV</a>
+                            <a class="btn btn-ghost" href="{{ asset(profile.cvPath) }}" download>{{ icons.download() }}Download CV</a>
                         {% endif %}
                     </div>
                 </div>
@@ -167,12 +169,12 @@
                         <p>{{ profile.contactText }}</p>
                     {% endif %}
                     <div class="hero-actions">
-                        <a class="btn btn-primary" href="mailto:{{ profile.email }}">Email Me</a>
+                        <a class="btn btn-primary" href="mailto:{{ profile.email }}">{{ icons.mail() }}Email Me</a>
                         {% if profile.linkedinUrl %}
-                            <a class="btn btn-ghost" href="{{ profile.linkedinUrl }}" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+                            <a class="btn btn-ghost" href="{{ profile.linkedinUrl }}" target="_blank" rel="noopener noreferrer">{{ icons.linkedin() }}LinkedIn</a>
                         {% endif %}
                         {% if profile.githubUrl %}
-                            <a class="btn btn-ghost" href="{{ profile.githubUrl }}" target="_blank" rel="noopener noreferrer">GitHub</a>
+                            <a class="btn btn-ghost" href="{{ profile.githubUrl }}" target="_blank" rel="noopener noreferrer">{{ icons.github() }}GitHub</a>
                         {% endif %}
                     </div>
                 </div>

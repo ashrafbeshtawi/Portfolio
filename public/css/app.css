@@ -79,7 +79,7 @@ img {
 }
 
 .section {
-    padding: 5rem 0;
+    padding: 4rem 0;
 }
 
 .section-alt {
@@ -171,7 +171,7 @@ h2 {
 .hero {
     background: linear-gradient(160deg, var(--navy) 0%, var(--navy-deep) 100%);
     color: var(--on-navy);
-    padding: 6rem 0 5.5rem;
+    padding: 4.5rem 0 4rem;
 }
 
 .hero-inner {
@@ -224,7 +224,9 @@ h2 {
 
 /* Buttons */
 .btn {
-    display: inline-block;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
     padding: 0.62rem 1.3rem;
     border-radius: 0.55rem;
     border: 1px solid var(--border);
@@ -234,6 +236,10 @@ h2 {
     font-weight: 600;
     cursor: pointer;
     transition: background 0.15s ease, border-color 0.15s ease, transform 0.15s ease;
+}
+
+.btn svg {
+    flex-shrink: 0;
 }
 
 .btn:hover {
@@ -651,11 +657,11 @@ h2 {
     }
 
     .section {
-        padding: 3.5rem 0;
+        padding: 3rem 0;
     }
 
     .hero {
-        padding: 4.5rem 0 4rem;
+        padding: 3.5rem 0 3rem;
     }
 
     .about-grid {

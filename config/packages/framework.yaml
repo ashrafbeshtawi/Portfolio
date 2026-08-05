@@ -7,7 +7,7 @@ framework:
 
     # Bump when CSS/JS change so browser caches (nginx: expires 7d) are invalidated.
     assets:
-        version: '4'
+        version: '5'
 
     #esi: true
     #fragments: true
