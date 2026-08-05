@@ -1,5 +1,8 @@
 
 ###> symfony/framework-bundle ###
+# .env is never committed — defaults live in .env.dist (Dotenv falls back
+# to it automatically when .env is absent)
+/.env
 /.env.local
 /.env.local.php
 /.env.*.local

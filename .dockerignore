@@ -4,6 +4,7 @@
 .dockerignore
 .idea
 .vscode
+.env
 .env.local
 .env.*.local
 .phpunit.cache
