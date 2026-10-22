@@ -5,7 +5,7 @@
 #   dev  — used by docker-compose; source code is bind-mounted, Chromium included for E2E tests
 #   prod — published to the registry; code and dependencies baked in
 
-FROM php:8.4-fpm-alpine AS base
+FROM php:8.4.27-fpm-alpine AS base
 
 RUN apk add --no-cache nginx supervisor icu-libs libpq libzip git unzip \
     && apk add --no-cache --virtual .build-deps icu-dev libpq-dev libzip-dev \
